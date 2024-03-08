@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% block title %}
+    Homepage -- Code Connect
+{% endblock %}
+
+
+{% block styles %}
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'home/styles.css' %}?{% now 'U' %}">
+{% endblock %}
+
+
+{% block content %}
+    <h1>Welcome to CUJ</h1>
+{% endblock %}
