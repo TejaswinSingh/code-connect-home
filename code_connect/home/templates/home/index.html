@@ -11,7 +11,12 @@
 {% endblock %}
 
 
-{% block content %}
-    <h1 >CODE CONNECT</h1>
-    <p>Go to <a href="{% url 'home:member_registration' %}">registration</a></p>
+{% block content_mobile %}
+    <div class="page-heading"> CODE CONNECT </div>
+    <p>Go to <a href="{% url 'members:member_registration' %}">registration</a></p>
+{% endblock %}
+
+{% block content_desktop  %}
+    <div class="page-heading"> CODE CONNECT </div>
+    <p>Go to <a href="{% url 'members:member_registration' %}">registration</a></p>
 {% endblock %}

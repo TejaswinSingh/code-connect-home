@@ -1,0 +1,22 @@
+{% extends "base_blur.html" %}
+
+{% block title %}
+    Member Registration
+{% endblock %}
+
+
+{% block styles %}
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'members/styles.css' %}?{% now 'U' %}">
+{% endblock %}
+
+
+{% block content_mobile %}
+    <div class="page-heading"> CODE CONNECT </div>
+    <p>Back to <a href="/">home</a></p>
+{% endblock %}
+
+{% block content_desktop  %}
+    <div class="page-heading"> CODE CONNECT </div>
+    <p>Back to <a href="/">home</a></p>
+{% endblock %}

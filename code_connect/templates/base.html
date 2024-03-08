@@ -4,24 +4,39 @@
 <html lang="en">
     <head>
         <title>{% block title %}{% endblock %}</title>
+        <link rel="stylesheet" href="{% static 'base.css' %}">
 
         <style>
-        @font-face {
-            font-family: 'Product Sans';
-            src: local('Product Sans'), url('{% static "home/fonts/product.woff" %}') format('woff');
-            font-weight: normal;
-            font-style: normal;
-        }
+            @font-face {
+                font-family: 'Product Sans';
+                src: local('Product Sans'), url('{% static "fonts/product.woff" %}') format('woff');
+                font-weight: normal;
+                font-style: normal;
+            }
         </style>
 
         {% block styles %}
         {% endblock %}
+
+        <!--Change address bar color on mobile devices-->
+        <meta content='#1a5998' name='theme-color' style="color: #1a5998"> 
         <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
 
     </head>
 
-    <body >
+    <body>
+
         <div class="overlay"></div>
-        {% block content %}{% endblock %}
+        
+        <div id="mobile-template">
+            {% block content_mobile  %}
+            {% endblock %}
+        </div>
+        
+        <div id="desktop-template">
+            {% block content_desktop  %}
+            {% endblock %}
+        </div>
+        
     </body>
 </html>

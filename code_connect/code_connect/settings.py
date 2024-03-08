@@ -28,17 +28,27 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 
+AUTH_USER_MODEL = 'members.CustomUser'
+
 
 # Application definition
 
 INSTALLED_APPS = [
+    # Internal apps
     "home.apps.HomeConfig",
+    "members.apps.MembersConfig",
+    #---------------------------
+    # 3rd party apps
+    "phonenumber_field",
+    #---------------------------
+    # Django default apps
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    #--------------------------------
 ]
 
 MIDDLEWARE = [
@@ -118,6 +128,18 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
 
 STATIC_URL = "static/"
+
+#STATIC_ROOT = BASE_DIR / 'productionfiles'
+
+#Add this in your settings.py file:
+STATICFILES_DIRS = [
+    BASE_DIR / 'global_static'
+]
+
+MEDIA_ROOT = BASE_DIR / 'media'
+
+MEDIA_URL = ''
+
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
