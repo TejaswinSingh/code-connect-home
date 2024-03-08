@@ -12,6 +12,18 @@
             font-weight: normal;
             font-style: normal;
         }
+        .overlay {
+            -webkit-filter: blur(1px);
+            -moz-filter: blur(1px);
+            -o-filter: blur(1px);
+            -ms-filter: blur(1px);
+            filter: blur(1px);
+        }
+
+        .content {
+            position: fixed;
+            z-index: 9999;
+        }
         </style>
 
         {% block styles %}
@@ -22,6 +34,8 @@
 
     <body >
         <div class="overlay"></div>
-        {% block content %}{% endblock %}
+        <div class="content">
+            {% block content %}{% endblock %}
+        </div>     
     </body>
 </html>

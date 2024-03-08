@@ -1,6 +1,29 @@
-body {
+h1 {
+    font-family: 'Product Sans'; 
+    margin-top: 0;
+}
+
+a {
+    color: #069d98 !important;
+    font-family: 'Product Sans'; 
+}
+
+p {
+    font-family: 'Product Sans'; 
+}
+
+.overlay{
     background-size: 15px 15px;
     background-image:
       linear-gradient(to right, grey 0.1px, transparent 1px),
       linear-gradient(to bottom, grey 0.1px, transparent 1px);
-  }
+    font-family: 'Product Sans';
+    background-color:transparent;
+    position:fixed;
+    width:100%;
+    height:100%;
+    top:0px;
+    left:0px;
+    z-index:-1;
+    padding: 3vw;
+}
