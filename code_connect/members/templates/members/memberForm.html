@@ -5,22 +5,22 @@
     <div class="error-message">
         {{ form.firstname.errors }}
     </div>
-    <span class="input-group-text" id="basic-addon1">^</span>
-    {% render_field form.firstname class+="form-control form-control-lg" placeholder="Firstname" %}
+    <span class="input-group-text rounded">^</span>
+    {% render_field form.firstname class+="form-control form-control-lg rounded" placeholder="Firstname" %}
 </div>
 <div class="input-group">
     <div class="error-message">
         {{ form.lastname.errors }}
     </div>
-    {% render_field form.lastname class+="form-control form-control-lg" placeholder="Lastname" %}
-    <span class="input-group-text" id="basic-addon1">$</span>
+    {% render_field form.lastname class+="form-control form-control-lg rounded" placeholder="Lastname" %}
+    <span class="input-group-text rounded">$</span>
 </div>
 <div class="input-group" style="margin-bottom: 0vh !important;">
     <div class="error-message">
         {{ form.email.errors }}
     </div>
-    {% render_field form.email class+="form-control form-control-lg" placeholder="Your email address" %}
-    <span class="input-group-text" id="basic-addon1">example@mail.com</span>
+    {% render_field form.email class+="form-control form-control-lg rounded" placeholder="Your email address" %}
+    <span class="input-group-text rounded">example@mail.com</span>
 </div>
 <div class="mb-3">
     <div class="error-message">
@@ -34,7 +34,7 @@
     </div>
     {% render_field form.contact class+="form-control form-control-lg" placeholder="Contact" %}
     <div class="form-text">
-        Don't forget to add +91 before your number
+        Don't forget to add +91 before your number!
     </div>
 </div>
 <div class="mb-3">
@@ -76,12 +76,16 @@
         display: inline-block;
         font-size: 13px;
         line-height: 15px;
-        margin-left: 1vw;
+        margin-left: 3vw;
     }
     .input-group {
         margin-bottom: 3vh !important;
     }
     .mb-3 {
         margin-bottom: 0vh !important;
+    }
+    .input-group-text {
+        background-color: #146ff8;
+        color: aliceblue;
     }
 </style>

@@ -11,6 +11,9 @@ def register(request):
             return redirect('home:index')
 
     else:
-        form = MemberForm()
+        if invitation_code:= request.GET.get('invite', None):
+            form = MemberForm(initial={'invitation_code':invitation_code})
+        else:
+            form = MemberForm()
         print("new form:", form)
     return render(request, "members/registeration.html", {'form': form})
