@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from .forms import MemberForm
+from .models import Member
 
 def register(request):
     if request.method == "POST":
@@ -15,5 +16,5 @@ def register(request):
             form = MemberForm(initial={'invitation_code':invitation_code})
         else:
             form = MemberForm()
-        print("new form:", form)
-    return render(request, "members/registeration.html", {'form': form})
+        members = Member.objects.all().order_by('-date_joined')
+    return render(request, "members/registeration.html", {'form': form, 'members': members[:5], 'total': len(members)})

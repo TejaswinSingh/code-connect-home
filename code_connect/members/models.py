@@ -68,7 +68,7 @@ class Member(models.Model):
     roll = models.CharField(max_length=10, unique=True, verbose_name="roll number")
     about = models.CharField(max_length=256, blank=True, help_text="Tell others about yourself")
     contact = PhoneNumberField(null=False, blank=False, unique=True, help_text="eg. +91 96XXXXXXX", verbose_name="phone number")
-    date_joined = models.DateField(auto_now_add=True)
+    date_joined = models.DateTimeField(auto_now_add=True)
     has_graduated = models.BooleanField(default=False)
 
     # Fields with choices
