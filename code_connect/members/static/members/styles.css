@@ -65,3 +65,7 @@ a {
 #dynamic-text {
     min-height: 4vw !important;
 }
+
+.lg {
+    font-size: larger;
+}

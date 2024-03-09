@@ -22,7 +22,7 @@
             for (var i = 0; i < 4; i++) {
                 setTimeout(function() {
                     dynamicTextElement.textContent = text;
-                    text += ".";
+                    text += " .";
                 }, i * 1000);
             }
         }
@@ -71,14 +71,12 @@
                 <div id="right-span-center">
 
                         <div>
-                                <div><span class="colored">{{ total }} </span>people have already registered. <p>Hurry up!</p></div>
+                                <div><span class="colored lg">{{ total }} </span>people have already registered. <p>Hurry up!</p></div>
                                 <ul class="list-group">
                                     {% for member in members %}
                                         {% if forloop.first %}
-                                            <li class="list-group-item active" aria-current="true">{{member.firstname}} joined {{member.date_joined|timesince}} ago</li>
-                                        {% elif forloop.last %}
-                                            <li class="list-group-item"><span class="colored">{{member.firstname}}</span> joined {{member.date_joined|timesince}} ago</li>
-                                            <li class="list-group-item" id="dynamic-text" aria-current="true">....</li>
+                                            <li class="list-group-item active" aria-current="true">{{member.firstname}} joined {{member.date_joined|timesince}} ago</li>  
+                                            <li class="list-group-item" id="dynamic-text" aria-current="true">....</li>                                          
                                         {% else %}
                                             <li class="list-group-item"><span class="colored">{{member.firstname}}</span> joined {{member.date_joined|timesince}} ago</li>
                                         {% endif %}
