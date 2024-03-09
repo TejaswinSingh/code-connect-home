@@ -1,0 +1,87 @@
+{% load widget_tweaks %}
+
+{{ form.non_field_errors }}
+<div class="input-group">
+    <div class="error-message">
+        {{ form.firstname.errors }}
+    </div>
+    <span class="input-group-text" id="basic-addon1">^</span>
+    {% render_field form.firstname class+="form-control form-control-lg" placeholder="Firstname" %}
+</div>
+<div class="input-group">
+    <div class="error-message">
+        {{ form.lastname.errors }}
+    </div>
+    {% render_field form.lastname class+="form-control form-control-lg" placeholder="Lastname" %}
+    <span class="input-group-text" id="basic-addon1">$</span>
+</div>
+<div class="input-group" style="margin-bottom: 0vh !important;">
+    <div class="error-message">
+        {{ form.email.errors }}
+    </div>
+    {% render_field form.email class+="form-control form-control-lg" placeholder="Your email address" %}
+    <span class="input-group-text" id="basic-addon1">example@mail.com</span>
+</div>
+<div class="mb-3">
+    <div class="error-message">
+        {{ form.roll.errors }}
+    </div>
+    {% render_field form.roll class+="form-control form-control-lg" placeholder="Role number" %}
+</div>
+<div class="mb-3">
+    <div class="error-message">
+        {{ form.contact.errors }}
+    </div>
+    {% render_field form.contact class+="form-control form-control-lg" placeholder="Contact" %}
+    <div class="form-text">
+        Don't forget to add +91 before your number
+    </div>
+</div>
+<div class="mb-3">
+    <div class="error-message">
+        {{ form.programme.errors }}
+    </div>
+    {% render_field form.programme class+="form-select form-select-lg" placeholder="Programme/Department" %}
+</div>
+<div class="mb-3">
+    <div class="error-message">
+        {{ form.semester.errors }}
+    </div>
+    {% render_field form.semester class+="form-select form-select-lg" placeholder="Semester" %}
+</div>
+<div class="mb-3">
+    <div class="error-message">
+        {{ form.invitation_code.errors }}
+    </div>
+    {% render_field form.invitation_code class+="form-control form-control-lg" placeholder="*Invitation code" %}
+</div>
+
+<style>
+    .form-select-lg {
+        color: rgb(95, 93, 93);
+    }
+    .error-message {
+        color: #cc0033;
+        display: inline-block;
+        font-size: 12px;
+        line-height: 15px;
+        margin: 5px 0 0;
+    }
+    .form-control, .form-select {
+        width: 100%;
+        font-size: 1rem;
+    }
+    .form-text {
+        color: #0c879d;
+        display: inline-block;
+        font-size: 13px;
+        line-height: 15px;
+        margin-left: 1vw;
+    }
+    .input-group {
+        margin-bottom: 3vh !important;
+    }
+    .mb-3 {
+        margin-bottom: 0vh !important;
+    }
+</style>

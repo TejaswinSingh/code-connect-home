@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     #---------------------------
     # 3rd party apps
     "phonenumber_field",
+    "widget_tweaks",
     #---------------------------
     # Django default apps
     "django.contrib.admin",

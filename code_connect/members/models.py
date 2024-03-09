@@ -1,5 +1,6 @@
 from django.db import models
 #from django.contrib.auth.models import User
+from django.conf import settings
 from phonenumber_field.modelfields import PhoneNumberField
 from django.core.exceptions import ValidationError
 from django.utils.translation import gettext_lazy as _
@@ -52,15 +53,21 @@ class CustomUser(AbstractUser):
 
     objects = UserManager()
 
+
 class Member(models.Model):
 
-    user = models.OneToOneField(CustomUser, on_delete=models.CASCADE)
+    user = models.OneToOneField(
+        settings.AUTH_USER_MODEL, 
+        on_delete=models.SET_NULL,
+        null=True, blank=True,
+        related_name="member",
+    )
     firstname = models.CharField(max_length=100)
     lastname = models.CharField(max_length=100)
     email = models.EmailField(max_length=100, unique=True)
-    roll = models.CharField(max_length=10, unique=True)
+    roll = models.CharField(max_length=10, unique=True, verbose_name="roll number")
     about = models.CharField(max_length=256, blank=True, help_text="Tell others about yourself")
-    contact = PhoneNumberField(null=False, blank=False, unique=True, help_text="eg. +91 96XXXXXXX")
+    contact = PhoneNumberField(null=False, blank=False, unique=True, help_text="eg. +91 96XXXXXXX", verbose_name="phone number")
     date_joined = models.DateField(auto_now_add=True)
     has_graduated = models.BooleanField(default=False)
 
@@ -72,7 +79,7 @@ class Member(models.Model):
     AVI = {'tag': "AVI", 'roll_fmt': "BEAVI", 'name': "Avionics"}
     PROGRAMMES = [CSE, CCS, ECE, AVI]
     PROGRAMME_CHOICES= {prog['tag']: prog['name'] for prog in PROGRAMMES}
-    programme = models.CharField(max_length=3, choices=PROGRAMME_CHOICES)
+    programme = models.CharField(max_length=3, choices=PROGRAMME_CHOICES, null=False, blank=False, default='')
 
     SEMESTER_CHOICES = [
         ("1", "1st Semester"), ("2", "2nd Semester"),
@@ -80,7 +87,7 @@ class Member(models.Model):
         ("5", "5th Semester"), ("6", "6th Semester"),
         ("7", "7th Semester"), ("8", "8th Semester"),
     ]
-    semester = models.CharField(max_length=1, choices=SEMESTER_CHOICES)
+    semester = models.CharField(max_length=1, choices=SEMESTER_CHOICES, null=False, blank=False, default='')
 
     # profile pic
     def profile_pic_path(instance, filename):

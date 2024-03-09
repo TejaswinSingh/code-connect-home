@@ -5,6 +5,7 @@ a {
 }
 #mobile-template, #desktop-template {
     font-family: 'Product Sans';
+    margin: 3vw;
 }
 #mobile-template .page-heading {
     font-size: 2em;
@@ -22,4 +23,8 @@ a {
 }
 #desktop-template p {
     font-size: 1.5em;
+}
+
+.submit {
+    margin-top: 3vh;
 }
