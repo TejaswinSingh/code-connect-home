@@ -4,6 +4,7 @@ from .forms import MemberForm
 from .models import Member
 
 def register(request):
+    context = {}
     if request.method == "POST":
         form = MemberForm(request.POST)
         if form.is_valid():
@@ -17,4 +18,8 @@ def register(request):
         else:
             form = MemberForm()
         members = Member.objects.all().order_by('-date_joined')
-    return render(request, "members/registeration.html", {'form': form, 'members': members[:5], 'total': len(members)})
+        context['total'] = len(members)
+        context['members'] = members[:5]
+    
+    context['form'] = form
+    return render(request, "members/registeration.html", context)
