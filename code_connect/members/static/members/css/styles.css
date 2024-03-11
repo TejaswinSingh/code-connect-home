@@ -32,6 +32,14 @@ a {
 .submit {
     margin-top: 3vh;
     width: 100%;
+    height: 6vh;
+    background-color: #146ff8 !important;
+}
+
+.submit2 {
+    margin-top: 1vh !important;
+    width: fit-content;
+    margin: auto;
     background-color: #146ff8 !important;
 }
 
@@ -59,13 +67,44 @@ a {
 
 .active {
     background-color: #146ff8 !important;
-    opacity: 0.5;
+    opacity: 1;
 }
 
 #dynamic-text {
+    min-height: 5vh !important;
+}
+
+#dynamic-text2 {
     min-height: 4vw !important;
 }
 
 .lg {
     font-size: larger;
+}
+
+.spinner {
+    border: 4px solid rgba(0, 0, 0, 0.1);
+    border-radius: 50%;
+    border-top: 4px solid #146ff8;
+    width: 40px;
+    height: 40px;
+    animation: spin 1s linear infinite;
+    margin: auto;display: none; 
+}
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+#show-who-button-section {
+    text-align: center;
+    margin-top: 10vh;
+}
+
+#show-who-button img {
+    width: 4vw; /* Adjust the width of the image */
+    height: 4vw;
+    margin-top: -0.5vw !important; /* Adjust the vertical alignment of the image */
+    margin-right: 0vw;
+    margin-left: 1vw;
 }

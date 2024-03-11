@@ -5,6 +5,10 @@ from .models import Member
 
 def register(request):
     context = {}
+    members = Member.objects.all().order_by('-date_joined')
+    context['total'] = len(members)
+    context['members'] = members[:5]
+
     if request.method == "POST":
         form = MemberForm(request.POST)
         if form.is_valid():
@@ -17,9 +21,6 @@ def register(request):
             form = MemberForm(initial={'invitation_code':invitation_code})
         else:
             form = MemberForm()
-        members = Member.objects.all().order_by('-date_joined')
-        context['total'] = len(members)
-        context['members'] = members[:5]
     
     context['form'] = form
-    return render(request, "members/registeration.html", context)
+    return render(request, "members/registration.html", context)

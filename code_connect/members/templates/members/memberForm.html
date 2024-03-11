@@ -70,8 +70,9 @@
     <div class="error-message">
         {{ form.invitation_code.errors }}
     </div>
-    <div class="p-3 text-primary-emphasis bg-primary-subtle border border-primary-subtle rounded-3">
-        {% render_field form.invitation_code class+="form-control form-control-lg" placeholder="*Invitation code" %}
+    <div class="input-group p-3 text-primary-emphasis bg-primary-subtle border border-primary-subtle rounded-3">
+        <span class="input-group-text rounded">Invitation code</span>
+        {% render_field form.invitation_code class+="invitation form-control form-control-lg" placeholder="eg. #4dfeg2kl" %}
     </div>
     
 </div>
@@ -108,5 +109,8 @@
     .input-group-text {
         background-color: #146ff8;
         color: aliceblue;
+    }
+    .invitation {
+        color: green !important;
     }
 </style>

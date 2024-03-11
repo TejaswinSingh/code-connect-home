@@ -4,7 +4,7 @@
 <html lang="en">
     <head>
         <title>{% block title %}{% endblock %}</title>
-        <link rel="stylesheet" href="{% static 'base.css' %}">
+        <link rel="stylesheet" href="{% static 'css/base.css' %}?{% now 'U' %}">
 
         <style>
             @font-face {

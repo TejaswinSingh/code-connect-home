@@ -15,8 +15,8 @@
 .overlay{
     background-size: 15px 15px;
     background-image:
-      linear-gradient(to right, grey 0.1px, transparent 1px),
-      linear-gradient(to bottom, grey 0.1px, transparent 1px);
+      linear-gradient(to right, rgb(128, 128, 128, 0.7) 0.1px, transparent 1px),
+      linear-gradient(to bottom, rgb(128, 128, 128, 0.7) 0.1px, transparent 1px);
     background-color:transparent;
     position:fixed;
     width:100%;

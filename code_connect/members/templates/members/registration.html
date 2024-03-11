@@ -1,34 +1,20 @@
 {% extends "base_blur.html" %}
 
 {% block title %}
-    Member Registration
+    Register at Code Connect
 {% endblock %}
 
 
 {% block styles %}
     {% load static %}
-    <link rel="stylesheet" href="{% static 'members/styles.css' %}?{% now 'U' %}">
+    <link rel="stylesheet" href="{% static 'members/css/styles.css' %}?{% now 'U' %}">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
 {% endblock %}
 
 
 {% block script %}
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous"></script>
-    <script>
-        function updateDynamicText() {
-            var dynamicTextElement = document.getElementById("dynamic-text");
-            var text = "";
-
-            for (var i = 0; i < 4; i++) {
-                setTimeout(function() {
-                    dynamicTextElement.textContent = text;
-                    text += " .";
-                }, i * 1000);
-            }
-        }
-        updateDynamicText();
-        setInterval(updateDynamicText, 4000);
-    </script>
+    <script src="{% static 'members/scripts/registration.js' %}?{% now 'U' %}"></script>
 {% endblock %}
 
 
@@ -45,6 +31,29 @@
         {{ form }}
         <input type="submit" class="btn btn-primary mb-3 submit" value="Register">
     </form>
+
+
+    <div id="show-who-button-section">
+        <div><span class="colored lg">{{ total }} </span>people have already registered. <div style="font-size: larger;">Hurry up!</div></div>
+        <div class="spinner" id="spinner1" style="margin-top: 1vh;"></div>
+        <button id="show-who-button" style="display: block;" class="btn btn-primary mb-3 submit2" onclick="showWho()">
+            <img src="{% static 'img/comment3.png' %}" style="margin-right: 1vw;" class="unclickable" alt="See who">
+            See who
+        </button>
+    </div>
+
+    <div id="registered-section" style="margin-top: 5vh; display: none;">
+        <ul class="list-group">
+            {% for member in members %}
+                {% if forloop.first %}
+                    <li class="list-group-item active" aria-current="true">{{member.firstname}} joined {{member.date_joined|timesince}} ago</li>  
+                    <li class="list-group-item" id="dynamic-text" aria-current="true">. . .</li>                                          
+                {% else %}
+                    <li class="list-group-item"><span class="colored">{{member.firstname}}</span> joined {{member.date_joined|timesince}} ago</li>
+                {% endif %}
+            {% endfor %}
+        </ul>
+    </div>
 
 
 {% endblock %}
@@ -76,7 +85,7 @@
                                     {% for member in members %}
                                         {% if forloop.first %}
                                             <li class="list-group-item active" aria-current="true">{{member.firstname}} joined {{member.date_joined|timesince}} ago</li>  
-                                            <li class="list-group-item" id="dynamic-text" aria-current="true">....</li>                                          
+                                            <li class="list-group-item" id="dynamic-text2" aria-current="true">....</li>                                          
                                         {% else %}
                                             <li class="list-group-item"><span class="colored">{{member.firstname}}</span> joined {{member.date_joined|timesince}} ago</li>
                                         {% endif %}
