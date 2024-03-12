@@ -118,9 +118,11 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = "en-us"
 
-TIME_ZONE = "Asia/Kolkata"
+TIME_ZONE = 'Asia/Kolkata'    # Change it to your location
 
 USE_I18N = True
+
+USE_L10N = True
 
 USE_TZ = True
 

@@ -1,6 +1,7 @@
-from .models import Member
-from django.forms import ModelForm
+from .models import Member, Invitation
+from django.forms import ModelForm, ValidationError
 from django import forms
+from django.core.exceptions import ObjectDoesNotExist, MultipleObjectsReturned
 
 class MemberForm(ModelForm):
     template_name = "members/memberForm.html"
@@ -26,3 +27,14 @@ class MemberForm(ModelForm):
 
         # Set default value and placeholder for the semester field
         self.fields['semester'].choices = [('', 'Please select Semester')] + list(self.fields['semester'].choices)
+
+
+    def clean_invitation_code(self):
+        data = self.cleaned_data["invitation_code"]
+
+        try:
+            Invitation.objects.get(code=data)
+        except (ObjectDoesNotExist):
+            raise ValidationError("Invalid invitation code! Please contact club leaders for more information.")
+
+        return data

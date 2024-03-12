@@ -1,0 +1,56 @@
+{% extends "base_blur.html" %}
+
+{% block title %}
+    Error {{error_code}}
+{% endblock %}
+
+
+{% block styles %}
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'members/css/styles.css' %}?{% now 'U' %}">
+    <style>
+
+        .center-container {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100%;
+        }
+    </style>
+{% endblock %}
+
+
+{% block script %}
+{% endblock %}
+
+
+{% block content_mobile %}
+
+
+    <div class="page-heading"> CODE CONNECT </div>
+    <p >Back to <a href="/">home</a></p>
+
+    <div class="center-container">
+        <div style="font-size: xx-large; text-align: center;">{{error_code}}</div>
+        <div style="margin-top: 2vh; font-size: large; text-align: center;">{{error}}</div>
+        <img src="{% static 'img/locked.png' %}" style="margin: auto; width: 50vw; height: 50vw; opacity: 0.7;" class="unclickable" alt="Locked">
+    </div>
+
+{% endblock %}
+
+
+
+
+{% block content_desktop  %}
+
+    <div class="page-heading"> CODE CONNECT </div>
+    <p >Back to <a href="/">home</a></p>
+
+    <div class="center-container">
+        <div style="font-size: xx-large; text-align: center;">{{error_code}}</div>
+        <div style="margin-top: 2vh; font-size: large; text-align: center;">{{error}}</div>
+        <img src="{% static 'img/locked.png' %}" style="margin: auto; width: 20vw; height: 20vw; opacity: 0.7;" class="unclickable" alt="Locked">
+    </div>
+
+{% endblock %}

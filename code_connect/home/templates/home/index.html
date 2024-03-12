@@ -18,9 +18,11 @@
 {% block content_mobile %}
     <div class="page-heading"> CODE CONNECT </div>
     <p>Go to <a href="{% url 'members:member_registration' %}">registration</a></p>
+    <p>Go to <a href="{% url 'members:generate_invitation' %}">invite generation</a></p>
 {% endblock %}
 
 {% block content_desktop  %}
     <div class="page-heading"> CODE CONNECT </div>
     <p>Go to <a href="{% url 'members:member_registration' %}">registration</a></p>
+    <p>Go to <a href="{% url 'members:generate_invitation' %}">invite generation</a></p>
 {% endblock %}

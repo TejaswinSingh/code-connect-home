@@ -5,6 +5,10 @@ from phonenumber_field.modelfields import PhoneNumberField
 from django.core.exceptions import ValidationError
 from django.utils.translation import gettext_lazy as _
 import re
+import string
+import random
+from django.utils import timezone
+from datetime import timedelta
 from django.contrib.auth.models import AbstractUser, BaseUserManager
 
 
@@ -123,3 +127,49 @@ class Member(models.Model):
 
     def __str__(self):
         return self.get_full_name()
+
+
+class Invitation(models.Model):
+    code = models.CharField(max_length=10, blank=True, unique=True)
+    user = models.ForeignKey(
+        settings.AUTH_USER_MODEL, 
+        on_delete=models.CASCADE,
+        related_name="invites",
+    )
+    timestamp = models.DateTimeField(auto_now_add=True)
+
+    VALID_DURATION = timedelta(days=3)
+    MAX_OBJECTS = 3
+    CODE_LENGTH = 10
+
+
+    def clean(self):
+
+        # generates pseudo random invites
+        def generate_code(size=6, chars=string.ascii_uppercase +string.digits):
+            return ''.join(random.choice(chars) for _ in range(size))
+        
+        # returns True if the passed invitation object is valid
+        def is_valid(self, invite):
+            if timezone.now() - invite.timestamp < self.VALID_DURATION:
+                return True
+            return False
+            
+        # deletes expired invitation objects
+        def clean_db(self):
+            for invite in Invitation.objects.all():
+                if not is_valid(self, invite):
+                    invite.delete()
+
+        clean_db(self)
+        if len(Invitation.objects.all()) == self.MAX_OBJECTS:
+            raise ValidationError(_("More invitations can't be created. Delete previous invitations or wait for them to expire."))
+
+        # keep generating code until you get a unique one
+        while True:
+            self.code = 'CUJ' + generate_code(self.CODE_LENGTH - 3)
+            if not Invitation.objects.filter(code=self.code).all():
+                break
+
+    def __str__(self):
+        return f"Invite code: {self.code} generated on {timezone.localtime(self.timestamp).strftime('%d-%m-%y at %I:%M:%S')}"

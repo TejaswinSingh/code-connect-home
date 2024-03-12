@@ -5,4 +5,5 @@ app_name = "members"
 
 urlpatterns = [
     path("registration/", views.register, name="member_registration"),
+    path("generateInvite/", views.generate_invitation, name="generate_invitation"),
 ]

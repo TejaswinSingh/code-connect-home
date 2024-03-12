@@ -42,3 +42,27 @@ function showWho() {
 
 
 }
+
+document.addEventListener("DOMContentLoaded", function() {
+    // Check if there are errors in the form
+    function scrollToError() {
+        var mobileTemplate = document.getElementById("mobile-template");
+        var desktopTemplate = document.getElementById("desktop-template");
+        var mobileDisplayStyle = window.getComputedStyle(mobileTemplate).getPropertyValue("display");
+        var desktopDisplayStyle = window.getComputedStyle(desktopTemplate).getPropertyValue("display");
+        var formErrors = document.querySelectorAll(".error-source");
+    
+        if (mobileDisplayStyle !== 'none') {
+            formError = formErrors[0];
+        } else if (desktopDisplayStyle !== 'none') {
+            formError = formErrors[1];
+        }
+    
+        formError.closest('.mb-3').scrollIntoView({
+            behavior: 'smooth',
+            block: 'start',
+            inline: 'nearest'
+        });
+    }
+    scrollToError();
+});

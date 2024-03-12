@@ -3,7 +3,11 @@
 {{ form.non_field_errors }}
 <div class="mb-3">
     <div class="error-message">
-        {{ form.firstname.errors }}
+        {% if form.firstname.errors %}
+            <div class="error-source">
+                {{form.firstname.errors}}
+            </div>
+        {% endif %}
     </div>
     <div class="input-group p-3 text-primary-emphasis bg-primary-subtle border border-primary-subtle rounded-3">
         <span class="input-group-text rounded">Ð</span>
@@ -12,7 +16,11 @@
 </div>
 <div class="mb-3">
     <div class="error-message">
-        {{ form.lastname.errors }}
+        {% if form.lastname.errors %}
+            <div class="error-source">
+                {{form.lastname.errors}}
+            </div>
+        {% endif %}
     </div>
     <div class="input-group p-3 text-primary-emphasis bg-primary-subtle border border-primary-subtle rounded-3">
         {% render_field form.lastname class+="form-control form-control-lg rounded" placeholder="Lastname" %}
@@ -21,7 +29,11 @@
 </div>
 <div class="mb-3" style="margin-bottom: 0vh !important;">
     <div class="error-message">
-        {{ form.email.errors }}
+        {% if form.email.errors %}
+            <div class="error-source">
+                {{form.email.errors}}
+            </div>
+        {% endif %}
     </div>
     <div class="input-group p-3 text-primary-emphasis bg-primary-subtle border border-primary-subtle rounded-3">
         {% render_field form.email class+="form-control form-control-lg rounded" placeholder="Your email address" %}
@@ -30,7 +42,11 @@
 </div>
 <div class="mb-3 ">
     <div class="error-message">
-        {{ form.roll.errors }}
+        {% if form.roll.errors %}
+            <div class="error-source">
+                {{form.roll.errors}}
+            </div>
+        {% endif %}
     </div>
     <div class="p-3 text-primary-emphasis bg-primary-subtle border border-primary-subtle rounded-3">
         {% render_field form.roll class+="form-control form-control-lg" placeholder="Role number" %}
@@ -38,7 +54,11 @@
 </div>
 <div class="mb-3">
     <div class="error-message">
-        {{ form.contact.errors }}
+        {% if form.contact.errors %}
+            <div class="error-source">
+                {{form.contact.errors}}
+            </div>
+        {% endif %}
     </div>
     <div class="p-3 text-primary-emphasis bg-primary-subtle border border-primary-subtle rounded-3">
         {% render_field form.contact class+="form-control form-control-lg" placeholder="Contact" %}
@@ -50,7 +70,11 @@
 </div>
 <div class="mb-3">
     <div class="error-message">
-        {{ form.programme.errors }}
+        {% if form.programme.errors %}
+            <div class="error-source">
+                {{form.programme.errors}}
+            </div>
+        {% endif %}
     </div>
     <div class="p-3 text-primary-emphasis bg-primary-subtle border border-primary-subtle rounded-3">
         {% render_field form.programme class+="form-select form-select-lg" %}
@@ -59,7 +83,11 @@
 </div>
 <div class="mb-3">
     <div class="error-message">
-        {{ form.semester.errors }}
+        {% if form.semester.errors %}
+            <div class="error-source">
+                {{form.semester.errors}}
+            </div>
+        {% endif %}
     </div>
     <div class="p-3 text-primary-emphasis bg-primary-subtle border border-primary-subtle rounded-3">
         {% render_field form.semester class+="form-select form-select-lg" placeholder="Semester" %}
@@ -68,11 +96,15 @@
 </div>
 <div class="mb-3">
     <div class="error-message">
-        {{ form.invitation_code.errors }}
+        {% if form.invitation_code.errors %}
+            <div class="error-source">
+                {{form.invitation_code.errors}}
+            </div>
+        {% endif %}
     </div>
     <div class="input-group p-3 text-primary-emphasis bg-primary-subtle border border-primary-subtle rounded-3">
         <span class="input-group-text rounded">Invitation code</span>
-        {% render_field form.invitation_code class+="invitation form-control form-control-lg" placeholder="eg. #4dfeg2kl" %}
+        {% render_field form.invitation_code class+="invitation form-control form-control-lg" placeholder="eg. CUJ61QJ978Y" %}
     </div>
     
 </div>

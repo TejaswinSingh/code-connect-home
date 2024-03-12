@@ -1,0 +1,46 @@
+
+#desktop-template form {
+    width: 60%;
+}
+
+
+#desktop-center-division {
+    display: flex; justify-content: space-between;
+}
+
+#right-span {
+    flex: 0 0 30%; text-align: center;
+}
+
+#right-span-center {
+    display: flex; justify-content: center; align-items: center; height: 100%;
+    font-family: 'Product Sans';
+}
+
+
+.list-group-item {
+    background-color: transparent !important;
+    border: 0.5px solid #146ff8  !important;
+}
+
+.active {
+    background-color: #146ff8 !important;
+    opacity: 1;
+}
+
+#dynamic-text {
+    min-height: 5vh !important;
+}
+
+#dynamic-text2 {
+    min-height: 4vw !important;
+}
+
+.lg {
+    font-size: larger;
+}
+
+#show-who-button-section {
+    text-align: center;
+    margin-top: 10vh;
+}
