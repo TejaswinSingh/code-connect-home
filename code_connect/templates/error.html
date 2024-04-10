@@ -7,7 +7,7 @@
 
 {% block styles %}
     {% load static %}
-    <link rel="stylesheet" href="{% static 'members/css/styles.css' %}?{% now 'U' %}">
+    <link rel="stylesheet" href="{% static 'members/css/base.css' %}?{% now 'U' %}">
     <style>
 
         .center-container {
@@ -29,7 +29,7 @@
 
 
     <div class="page-heading"> CODE CONNECT </div>
-    <p >Back to <a href="/">home</a></p>
+    <p>Back to <a href="/">home</a></p>
 
     <div class="center-container">
         <div style="font-size: xx-large; text-align: center;">{{error_code}}</div>
@@ -45,7 +45,7 @@
 {% block content_desktop  %}
 
     <div class="page-heading"> CODE CONNECT </div>
-    <p >Back to <a href="/">home</a></p>
+    <p>Back to <a href="/">home</a></p>
 
     <div class="center-container">
         <div style="font-size: xx-large; text-align: center;">{{error_code}}</div>

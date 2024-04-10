@@ -1,0 +1,45 @@
+{% load widget_tweaks %}
+
+<div class="error-message" style="margin-top: 5vh;">
+    {{ form.non_field_errors }}
+</div>
+<div class="mb-3">
+    <div class="error-message">
+        {% if form.csv_file.errors %}
+            <div class="error-source">
+                {{form.csv_file.errors}}
+            </div>
+        {% endif %}
+    </div>
+    <label for="mail-csv" class="form-label input-group-text rounded">Upload CSV file</label>
+    <div class="input-group p-3 text-primary-emphasis bg-primary-subtle border border-primary-subtle rounded-3">
+        {% render_field form.csv_file class+="form-control" id="mail-csv" name="mail-csv" %}
+    </div>
+</div>
+
+
+<div class="mb-3">
+    <div class="error-message">
+        {% if form.mail_list.errors %}
+            <div class="error-source">
+                {{form.mail_list.errors}}
+            </div>
+        {% endif %}
+    </div>
+    <label for="mail-list" class="form-label input-group-text rounded">or type out the mails manually</label>
+    <div class="input-group p-3 text-primary-emphasis bg-primary-subtle border border-primary-subtle rounded-3">
+        {% render_field form.mail_list class+="form-control" id="mail-list" name="mail-list" rows="3" placeholder="example1@mail.com, example2@mail.com, example3@mail.com ..." %}
+    </div>
+</div>
+
+
+<style>
+    .error-message {
+        color: #cc0033;
+        display: inline-block;
+        font-size: 0.75rem;
+        line-height: 15px;
+        margin: 5px 0 0;
+        margin-bottom: -2vh;
+    }
+</style>

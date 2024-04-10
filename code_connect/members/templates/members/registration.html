@@ -27,6 +27,15 @@
 
     <div style="margin-bottom: 2vh;">Join our club by filling the form below!</div>
 
+    <div class="alert alert-warning" role="alert" style="margin-bottom: 2vh;">
+        <h4 class="alert-heading">Welcome!</h4>
+        <p>
+            Welcome to our coding club community! By filling out the form below, you're taking the first step towards joining a vibrant community of code enthusiasts. 
+            Your participation signifies your agreement to abide by our community guidelines and code of conduct, ensuring a positive and inclusive environment for all members.</p>
+        <hr>
+        <p class="mb-0"> We're excited to have you join us on this journey!</p>
+    </div>
+
     <form action="{% url 'members:member_registration'%}" method="post">
         {% csrf_token %}
         {{ form }}
@@ -34,14 +43,16 @@
     </form>
 
 
-    <div id="show-who-button-section">
-        <div><span class="colored lg">{{ total }} </span>people have already registered. <div style="font-size: larger;">Hurry up!</div></div>
-        <div class="spinner" id="spinner1" style="margin-top: 1vh;"></div>
-        <button id="show-who-button" style="display: block;" class="btn btn-primary mb-3 submit2" onclick="showWho()">
-            <img src="{% static 'img/comment3.png' %}" style="margin-right: 1vw;" class="unclickable" alt="See who">
-            See who
-        </button>
-    </div>
+    {% if total %}
+        <div id="show-who-button-section">
+            <div><div style="font-size: larger;">Hurry up!</div><span class="colored lg">{{ total }} </span>people have already registered. </div>
+            <div class="spinner" id="spinner1" style="margin-top: 1vh;"></div>
+            <button id="show-who-button" style="display: block;" class="btn btn-primary mb-3" onclick="showWho()">
+                <img src="{% static 'img/comment3.png' %}" style="margin-right: 1vw;" class="unclickable" alt="See who">
+                See who
+            </button>
+        </div>
+    {% endif %}
 
     <div id="registered-section" style="margin-top: 5vh; display: none;">
         <ul class="list-group">
@@ -69,6 +80,15 @@
 
     <p style="margin-bottom: 2vh;">Join our club by filling the form below!</p>
 
+    <div class="alert alert-warning" role="alert" style="margin-top: 5vh; margin-bottom: 5vh;"">
+        <h2 class="alert-heading">Welcome!</h2>
+        <p>
+            Welcome to our coding club community! By filling out the form below, you're taking the first step towards joining a vibrant community of code enthusiasts. 
+            Your participation signifies your agreement to abide by our community guidelines and code of conduct, ensuring a positive and inclusive environment for all members.</p>
+        <hr>
+        <p class="mb-0"> We're excited to have you join us on this journey!</p>
+    </div>
+
     <div id="desktop-center-division">
 
         <form action="{% url 'members:member_registration' %}" method="post" style="flex: 1;">
@@ -78,7 +98,7 @@
         </form>
     
         <span id="right-span">
-                <div id="right-span-center">
+                <div id="right-span-center" {% if not total %} style="display: none;" {% endif %}>
 
                         <div>
                                 <div><span class="colored lg">{{ total }} </span>people have already registered. <p>Hurry up!</p></div>

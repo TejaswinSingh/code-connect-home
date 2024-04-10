@@ -44,3 +44,10 @@
     text-align: center;
     margin-top: 10vh;
 }
+
+#show-who-button {
+    margin-top: 1vh !important;
+    width: fit-content;
+    margin: auto;
+    background-color: #146ff8 !important;
+}

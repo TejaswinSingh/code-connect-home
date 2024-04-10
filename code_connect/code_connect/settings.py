@@ -29,6 +29,7 @@ DEBUG = True
 ALLOWED_HOSTS = ['*']
 
 AUTH_USER_MODEL = 'members.CustomUser'
+# APPEND_SLASH = True
 
 
 # Application definition

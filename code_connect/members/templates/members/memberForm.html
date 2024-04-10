@@ -36,7 +36,7 @@
         {% endif %}
     </div>
     <div class="input-group p-3 text-primary-emphasis bg-primary-subtle border border-primary-subtle rounded-3">
-        {% render_field form.email class+="form-control form-control-lg rounded" placeholder="Your email address" %}
+        {% render_field form.email class+="orange form-control form-control-lg rounded" placeholder="Your email address" %}
         <span class="input-group-text rounded">example@mail.com</span>
     </div>
 </div>
@@ -104,7 +104,7 @@
     </div>
     <div class="input-group p-3 text-primary-emphasis bg-primary-subtle border border-primary-subtle rounded-3">
         <span class="input-group-text rounded">Invitation code</span>
-        {% render_field form.invitation_code class+="invitation form-control form-control-lg" placeholder="eg. CUJ61QJ978Y" %}
+        {% render_field form.invitation_code class+="green form-control form-control-lg" placeholder="eg. CUJ61QJ978Y" %}
     </div>
     
 </div>
@@ -142,7 +142,10 @@
         background-color: #146ff8;
         color: aliceblue;
     }
-    .invitation {
+    .green {
         color: green !important;
+    }
+    .orange {
+        color: rgb(247, 102, 34) !important;
     }
 </style>
