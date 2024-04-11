@@ -1,0 +1,2 @@
+1) make has_expired() in Invitation model a [D[D[D[D[D[D[D[D[D[D[D[D[D[D[D[D[D[D[D[D[D[D[D[D[C method in Invitation model a property
+2) add .pyc files to git ignore

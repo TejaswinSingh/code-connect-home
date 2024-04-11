@@ -88,12 +88,13 @@ class Member(models.Model):
     PROGRAMME_CHOICES= {prog['tag']: prog['name'] for prog in PROGRAMMES}
 
     # Semester
-    SEMESTER_CHOICES = [
+    SEMESTER = [
         ("1", "1st Semester"), ("2", "2nd Semester"),
         ("3", "3rd Semester"), ("4", "4th Semester"),
         ("5", "5th Semester"), ("6", "6th Semester"),
         ("7", "7th Semester"), ("8", "8th Semester"),
     ]
+    SEMESTER_CHOICES = {sem[0]: sem[1] for sem in SEMESTER}
     #__*__*__*__*__*__*__*__*__*__*__*__*__*__*__*__*__*__*__*__*__*__*__*__*__*__*__*__*
 
 
@@ -176,6 +177,7 @@ class Member(models.Model):
 
 
         super().clean() # always call this method
+        self.roll = self.roll.upper()
         can_graduate(self)
         check_roll(self)
 
@@ -276,7 +278,7 @@ class Invitation(models.Model):
         """
             - custom clean method
 
-            *   fills 'code' field for each object
+            *   fills 'code' field with randomly generated strings
         """
         def get_random_string(length=6, chars=string.ascii_uppercase +string.digits):
             """ generates pseudo random strings of required length  """
@@ -308,7 +310,7 @@ class Invitation(models.Model):
             return
         if invite.accepted:
             raise ValidationError(
-                {"mail_address": _("A Member with this mail already exists!")}
+                {"mail_address": _("This mail has already accepted an Invitation before.")}
             )
         else:   # not accepted
             if invite.has_expired():
