@@ -1,13 +1,16 @@
 from django.shortcuts import render, redirect
-from django.http import HttpResponse, HttpResponseBadRequest
-from django.core.exceptions import ValidationError
-from .forms import MemberForm, InviteForm
-from .models import Member, Invitation
+from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required
-import csv
-from django.utils import timezone
-import os
+
+from members.forms import MemberForm, InviteForm
+from members.models import Member
+
 from . import utils
+
+
+
+#_____________________________________views___________________________________________
+
 
 def register(request):
     """
@@ -23,7 +26,7 @@ def register(request):
             and authorisation tasks.     
     """
 
-    # for displaying the last 10 people who registered
+    # displays the last 10 people who registered
     members = Member.objects.all().order_by('-date_joined')
     context = {'total': len(members), 'members': members[:10]}
 
@@ -35,7 +38,8 @@ def register(request):
             return redirect('home:index')
 
     else:
-        # autofill 'invitation_code' and 'email' form-fields if query parameter 'i' is provided
+        #   * autofill 'invitation_code' and 'email' form-fields if query parameter 
+        #   * 'i' is provided.
         if invitation_code:= request.GET.get('i', None):
             invite = utils.get_Invitation_or_None(code=invitation_code)
             form = MemberForm(initial={'invitation_code':invitation_code, 'email': invite.mail_address})
@@ -44,7 +48,6 @@ def register(request):
     
     context['form'] = form
     return render(request, "members/registration.html", context)
-
 
 
 @login_required(login_url="/admin/login/")

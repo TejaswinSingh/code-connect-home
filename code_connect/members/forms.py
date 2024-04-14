@@ -2,16 +2,18 @@ from django.forms import forms, ModelForm, ValidationError
 from django import forms
 from django.core.exceptions import ObjectDoesNotExist, MultipleObjectsReturned
 from django.utils.translation import gettext_lazy as _
+
 import os, csv
 from . import utils
+
 from .models import Member, Invitation
 
-class MemberForm(ModelForm):
-    """
-        - form for Member registration page
-    """
 
-    # template for this form
+
+class MemberForm(ModelForm):
+    """ form for Member registration page """
+
+    # form template
     template_name = "members/memberForm.html"
 
     #_______________________form fields_________________________
@@ -28,9 +30,9 @@ class MemberForm(ModelForm):
             'programme',
             'semester',
         ]
-    #__*__*__*__*__*__*__*__*__*__*__*__*__*__*__*__*__*__*__*__*__*__*__*__*__*__*__*__*
 
-
+    #_______________________dunder methods_________________________
+        
     def __init__(self, *args, **kwargs):
         """ Set default value and placeholder for the programme field & the semester field """
         super(MemberForm, self).__init__(*args, **kwargs)
@@ -48,9 +50,6 @@ class MemberForm(ModelForm):
                     i) If no Invitation object exists for the submitted invitation_code.
                     ii) If the email provided by the user doesn't match the email associated with the 
                     Invitation.
-            *   If no errors were detected and the form is valid, then mark the Invitation object
-                used for registration as accepted, to make sure the same invitation cannot be used 
-                again.
         """
         super().clean() # always call this method
         try:
@@ -65,14 +64,14 @@ class MemberForm(ModelForm):
             raise ValidationError(
                 {"email": _("This email wasn't sent an invitation.")}
             )
-        
-        # if not self.errors:
-        #     invite.accepted = True
-        #     invite.save()
-        # invite.delete()  # delete invite after registering Member
 
-    
     def save(self, commit=True):
+        """
+            - Call this method after form validation is completed, and if `commit` is True 
+            mark the Invitation object used for registration as accepted, to make sure the 
+            same invitation cannot be used again. If `commit` is False then you need to update
+            the related Invitation object yourself. 
+        """
         m = super(MemberForm, self).save(commit=False)
         if commit:
             try:
@@ -83,8 +82,6 @@ class MemberForm(ModelForm):
                 pass
             m.save()
         return m
-
-    #__*__*__*__*__*__*__*__*__*__*__*__*__*__*__*__*__*__*__*__*__*__*__*__*__*__*__*__*
 
 
     #_______________________field-level validation_________________________
@@ -113,10 +110,6 @@ class MemberForm(ModelForm):
 
         return data
 
-    #__*__*__*__*__*__*__*__*__*__*__*__*__*__*__*__*__*__*__*__*__*__*__*__*__*__*__*__*
-
-
-###########################################################################################
 
 
 class InviteForm(forms.Form):
@@ -140,18 +133,14 @@ class InviteForm(forms.Form):
                     i) it has now expired, then we delete that Invitation, and create a new one for the given mail address.
                     ii) it is not yet expired, then we raise an error stating such.  
     """
-
-    # template for this form
+    
+    # form template
     template_name = "members/inviteForm.html"
-
 
     #_______________________form fields_________________________
 
     csv_file = forms.FileField(required=False)
     mail_list = forms.CharField(required=False, min_length=1, widget=forms.Textarea)
-
-    #__*__*__*__*__*__*__*__*__*__*__*__*__*__*__*__*__*__*__*__*__*__*__*__*__*__*__*__*
-
 
     #_______________________form-level validation_________________________
 
@@ -170,10 +159,6 @@ class InviteForm(forms.Form):
         
         if not self.errors:
             self.create_invites()
-
-    #__*__*__*__*__*__*__*__*__*__*__*__*__*__*__*__*__*__*__*__*__*__*__*__*__*__*__*__*
-
-
 
     #_______________________field-level validation_________________________
 
@@ -196,8 +181,7 @@ class InviteForm(forms.Form):
             csv_file_path = utils.handle_uploaded_file(csv_file)
             return InviteForm.get_mails_from_csv(csv_file_path)  # returns the set of extracted mails
 
-        return csv_file  # always return the value you want this form field to have when accessed again
-
+        return csv_file  # always return the value you want this form-field to have when accessed again
 
     def clean_mail_list(self):
         """
@@ -205,11 +189,11 @@ class InviteForm(forms.Form):
 
             *   expects mail addresses to be separated by a comma (,)
             *   returns the set of non-empty mail-addresses found
+
             NOTE: validation of mail format is done at model level while creating Invitation objects in
-                create_invites()
+            create_invites()
         """
         mails = set()
-
         mail_list = self.cleaned_data.get("mail_list")
         if mail_list:
             for mail in mail_list.split(','):
@@ -217,9 +201,6 @@ class InviteForm(forms.Form):
                 if mail:
                     mails.add(mail)
         return mails
-
-    #__*__*__*__*__*__*__*__*__*__*__*__*__*__*__*__*__*__*__*__*__*__*__*__*__*__*__*__*
-
 
     #_______________________helper functions_________________________
 
@@ -239,7 +220,8 @@ class InviteForm(forms.Form):
 
         try:
             with open(file, "r") as f:
-                csv_data = csv.DictReader(f)
+                # when `skipinitialspace` is True, whitespace immediately following the delimiter is ignored.
+                csv_data = csv.DictReader(f, skipinitialspace=True)
                 if 'email' not in csv_data.fieldnames:
                     raise ValueError
                 for row in csv_data:
@@ -249,15 +231,17 @@ class InviteForm(forms.Form):
                 if not mails:
                     raise TypeError
         except ValueError:
+            os.remove(file)
             raise ValidationError("Error processing CSV file. No 'email' column was found.")
         except TypeError:
+            os.remove(file)
             raise ValidationError("No mail addresses were found in the file.")
         except Exception:
+            os.remove(file)
             raise ValidationError("Error processing CSV file. Check your file format.")
         
         os.remove(file)  # delete the file after you're done
         return mails
-
 
     def create_invites(self):
         """
@@ -273,7 +257,7 @@ class InviteForm(forms.Form):
             mails_csv = set()
         mails = mails_list | mails_csv  # union
         invites = []
-        Invitation.clean_db()   # deletes only expired AND unaccepted invitations
+        Invitation.clean_db()   # deletes all expired AND unaccepted invitations
         for mail in mails:
             try:
                 invite = Invitation(mail_address=mail)
@@ -281,9 +265,8 @@ class InviteForm(forms.Form):
                 invites.append(invite)
             except ValidationError as e:
                 raise ValidationError(f"{mail} - {e.error_dict['mail_address'][0]}")
-        # we don't save the objects to db above. We wait until all of them have been created 
-        # and have passed the model-validation checks
+            
+        #   * we haven't yet saved the objects to db. We wait until all of them have been created 
+        #   * and have passed the model-validation checks
         for i in invites:
             i.save()
-
-    #__*__*__*__*__*__*__*__*__*__*__*__*__*__*__*__*__*__*__*__*__*__*__*__*__*__*__*__*

@@ -1,0 +1,6 @@
+1) make has_expired() method in Invitation model a property
+2) add .pyc files to git ignore
+3) temp dir 'invite_csv_files' should go inside a temp dir
+4) Add authorship notes to each python module
+5) Fix the formatting of all the modules in members app
+6) write tests for members.views
