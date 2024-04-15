@@ -7,12 +7,14 @@ from django.utils import timezone
 
 from phonenumber_field.modelfields import PhoneNumberField
 
+from home.models import SendEmailTask
+
 import re
 import string
 import random
 from datetime import timedelta
 
-
+#_______________________________________models___________________________________________
 
 class UserManager(BaseUserManager):
     """ Define a model manager for User model with no username field. """
@@ -143,7 +145,7 @@ class Member(models.Model):
         """
             - custom save method 
 
-            *   before creating a Member object, creates a CustomUser object first with
+            *   before saving a Member object, creates a CustomUser object first with
                 same firstname, lastname and email attributes and a default password
         """  
         # if user is not assigned already, then create a new CustomUser object
@@ -245,6 +247,37 @@ class Invitation(models.Model):
         if timezone.now() - self.sent_at >= self.VALID_DURATION:
             return True
         return False
+    
+    def save(self, *args, **kwargs):
+        """
+            - custom save method 
+
+            *   after saving the Invitation, we create a SendEmail task
+            that is responsible for actually sending the invitation mail to
+            the provided {mail_address}
+        """  
+        super().save(*args, **kwargs)  # Call the "real" save() method.
+
+        # create task only the first time when the Invitation was created
+        if not self.sent_at:
+            task = SendEmailTask(
+                name=f"Invitation to {self.mail_address}",
+                email=self.mail_address,
+            )
+            try:
+                task.full_clean()
+                task.save()
+                # now update {sent_at}
+                self.sent_at = timezone.now()
+                self.full_clean()
+                self.save()
+            except Exception:
+                pass
+
+        # NOTE: updating {sent_at} before the mail was actually sent is a design decision I have taken.
+        # It might change in the future, if any complications arise.
+
+
 
 
     #______________________class methods_________________________

@@ -1,3 +1,6 @@
 from django.contrib import admin
 
-# Register your models here.
+from home.models import SendEmailTask, Task
+
+admin.site.register(Task)
+admin.site.register(SendEmailTask)
