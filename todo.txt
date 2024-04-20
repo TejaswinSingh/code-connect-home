@@ -4,3 +4,5 @@
 4) Add authorship notes to each python module
 5) Fix the formatting of all the modules in members app
 6) write tests for members.views
+7) write tests for bg_tasks
+8) Add typing hints to all function args and return values

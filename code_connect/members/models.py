@@ -7,7 +7,7 @@ from django.utils import timezone
 
 from phonenumber_field.modelfields import PhoneNumberField
 
-from home.models import SendEmailTask
+from home.models import SendInviteTask
 
 import re
 import string
@@ -15,6 +15,9 @@ import random
 from datetime import timedelta
 
 #_______________________________________models___________________________________________
+
+# NOTE: refer below for Custom User model using email rather than username for authentication
+# https://www.fomfus.com/articles/how-to-use-email-as-username-for-django-authentication-removing-the-username/
 
 class UserManager(BaseUserManager):
     """ Define a model manager for User model with no username field. """
@@ -242,7 +245,7 @@ class Invitation(models.Model):
 
     def has_expired(self):
         """ returns True if the given object has expired """
-        if not self.sent_at: # if invitation exists but was not sent yet
+        if not self.sent_at: # if invitation exists but is not sent yet
             return False
         if timezone.now() - self.sent_at >= self.VALID_DURATION:
             return True
@@ -260,22 +263,14 @@ class Invitation(models.Model):
 
         # create task only the first time when the Invitation was created
         if not self.sent_at:
-            task = SendEmailTask(
+            task = SendInviteTask(
                 name=f"Invitation to {self.mail_address}",
-                email=self.mail_address,
+                invite=self
             )
-            try:
-                task.full_clean()
-                task.save()
-                # now update {sent_at}
-                self.sent_at = timezone.now()
-                self.full_clean()
-                self.save()
-            except Exception:
-                pass
-
-        # NOTE: updating {sent_at} before the mail was actually sent is a design decision I have taken.
-        # It might change in the future, if any complications arise.
+            task.full_clean()
+            task.save()
+            # NOTE: {sent_at} is updated when the invitation is actually sent using 
+            # SendInviteTask.send() method
 
 
 
