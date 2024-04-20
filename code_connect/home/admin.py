@@ -12,12 +12,15 @@ __maintainer__ = "Tejaswin Singh"
 __email__ = "tejaswin.cs08@gmail.com"
 __status__ = "Development"
 
-#_____________________________________________________________________________________________________
+#______________________________________________imports_________________________________________________
 
 
 from django.contrib import admin
 
 from home.models import SendInviteTask, Task
+
+
+#______________________________________________admin-models_________________________________________________
 
 admin.site.register(Task)
 admin.site.register(SendInviteTask)

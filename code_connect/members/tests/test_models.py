@@ -10,7 +10,7 @@ from members.models import Member, CustomUser, Invitation
 
 
 class MemberModelTests(TestCase):
-    """ Tests for Member """
+    """ tests for Member """
 
     #_______________________utilities_________________________
 

@@ -12,7 +12,7 @@ __maintainer__ = "Tejaswin Singh"
 __email__ = "tejaswin.cs08@gmail.com"
 __status__ = "Development"
 
-#_____________________________________________________________________________________________________
+#______________________________________________imports_________________________________________________
 
 
 from django.db import models
@@ -76,6 +76,7 @@ class Task(models.Model):
         """ call if there was some error while performing the task """
 
         self.state = Task.ABORTED
+        self.exit = timezone.now()
         self.full_clean()
         self.save()
 
