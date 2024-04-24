@@ -1,8 +1,8 @@
-1) make has_expired() method in Invitation model a property
-2) add .pyc files to git ignore
-3) temp dir 'invite_csv_files' should go inside a temp dir
-4) Add authorship notes to each python module
-5) Fix the formatting of all the modules in members app
-6) write tests for members.views
-7) write tests for bg_tasks
-8) Add typing hints to all function args and return values
+1) temp dir 'invite_csv_files' should go inside a temp dir
+2) Add authorship notes to each python module
+3) write tests for members.views
+4) After registration, users should be directed to set login page, after that their profile page.
+    So we need to implement login page first, then a login setup page, then a profile page.
+5) We also need a forget password functionality.
+6) Add typing hints to all function args and return values
+

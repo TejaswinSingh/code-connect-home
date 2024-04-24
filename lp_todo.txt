@@ -1,1 +1,2 @@
 1) In members.tests.test_models, use assertRaisesMessage instead of assertRaises
+2) chat feature between two users
