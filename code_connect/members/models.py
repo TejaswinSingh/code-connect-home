@@ -1,11 +1,12 @@
 from django.db import models
 from django.conf import settings
-from django.core.exceptions import ValidationError, ObjectDoesNotExist
+from django.core.exceptions import ValidationError, ObjectDoesNotExist, MultipleObjectsReturned
 from django.utils.translation import gettext_lazy as _
 from django.contrib.auth.models import AbstractUser, BaseUserManager
 from django.utils import timezone
 
 from phonenumber_field.modelfields import PhoneNumberField
+from guess_indian_gender import IndianGenderPredictor
 
 from home.models import SendInviteTask
 
@@ -60,7 +61,7 @@ class CustomUser(AbstractUser):
     username = None
     email = models.EmailField(_('email address'), unique=True)
 
-    default_password = "12345678"
+    DEFAULT_PASSWORD = "12345678"
 
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = []
@@ -150,17 +151,26 @@ class Member(models.Model):
 
             *   before saving a Member object, creates a CustomUser object first with
                 same firstname, lastname and email attributes and a default password
+            *   If a CustomUser with the same email already exists, then we simply refer
+                to that CustomUser via {user}. If no CustomUser exists and {user} is set
+                to NULL, then only we create a new CustomUser for our Member
         """  
-        # if user is not assigned already, then create a new CustomUser object
-        # and refer it to to this Member's user field
-        if not self.user:  
-            user = CustomUser(
-                first_name=self.firstname, last_name=self.lastname, 
-                email=self.email, password=CustomUser.default_password
-            )
-            user.full_clean()
-            user.save()
-            self.user = user 
+        try:
+            c = CustomUser.objects.get(email=self.email)
+            self.user = c
+        except (ObjectDoesNotExist, MultipleObjectsReturned):
+
+            # if user is not assigned already, then create a new CustomUser object
+            # and refer it to to this Member's user field
+            if not self.user:
+
+                user = CustomUser.objects.create_user(
+                    first_name=self.firstname, last_name=self.lastname, 
+                    email=self.email, password=CustomUser.DEFAULT_PASSWORD
+                )
+                self.user = user 
+
+
         super().save(*args, **kwargs)  # Call the "real" save() method.
 
     def clean(self):
@@ -189,11 +199,22 @@ class Member(models.Model):
                 raise ValidationError(
                         {"has_graduated": _("Students that are not in the 8th semester can't be marked as graduated.")}
                     )
+            
+        def assign_profile_pic(self):
+            """ 
+                - tries to predict gender of the user based on their name and then assigns an appropiate profile pic
+            """
+            gender = IndianGenderPredictor().predict(name=self.firstname)
+            if gender == 'male':
+                self.profile_pic = 'defaults/male.png'
+            else:
+                self.profile_pic = 'defaults/female.png'
 
         super().clean() # always call this method
         self.roll = self.roll.upper()
         can_graduate(self)
         check_roll(self)
+        assign_profile_pic(self)
 
 
     #______________________instance methods_________________________

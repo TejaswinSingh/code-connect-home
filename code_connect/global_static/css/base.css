@@ -26,3 +26,9 @@
     z-index:-1;
     padding: 3vw;
 }
+.insta-text {
+    background: linear-gradient(red, blue);
+    -webkit-background-clip: text;
+            background-clip: text;
+    -webkit-text-fill-color: transparent;
+}

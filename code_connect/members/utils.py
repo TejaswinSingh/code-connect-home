@@ -1,4 +1,7 @@
 from django.utils import timezone
+from django.shortcuts import render
+from django.contrib.auth.decorators import login_required
+from django.conf import settings
 
 from datetime import timedelta
 import os
@@ -7,6 +10,31 @@ from members.models import Invitation
 
 
 #_______________________utilities_________________________
+
+def permission_required(perm):
+    """
+        - a decorator used for checking if the user has the specified
+        permission. If not then a 403 Forbidden status code is returned
+        along with the error page.
+
+        NOTE: no need to use @login_required before using this decorator.
+    """
+    def decorator(func):
+        @login_required(login_url=settings.LOGIN_URL)
+        def wrapper(request, *args, **kwargs):
+            if not request.user.has_perm(perm):
+                return render(
+                        request, 
+                        "error.html", 
+                        {
+                            'error_code': "403 (Forbidden)",
+                            'error': "We are extremely sorry, but you don't have the permission to generate invites 😔"
+                        }, 
+                        status=403,
+                    )
+            return func(request, *args, **kwargs)
+        return wrapper
+    return decorator
 
 def handle_uploaded_file(f):
     """ 

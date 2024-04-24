@@ -1,0 +1,36 @@
+<form method="post" >
+    <fieldset>
+        <legend>Password change</legend>
+                            <input type="hidden" name="csrfmiddlewaretoken" value="CLDe6hMVZmm2m9ai8kMoCtUS9IjsrCn4IwwHNmpAns37LUZWrlvk67I5BOe3jfOg">
+                            <p>
+    <label for="id_old_password">Old password:</label>
+    <input type="password" name="old_password" autocomplete="current-password" autofocus required id="id_old_password">
+    
+    
+  </p>
+
+  
+  <p>
+    <label for="id_new_password1">New password:</label>
+    <input type="password" name="new_password1" autocomplete="new-password" required aria-describedby="id_new_password1_helptext" id="id_new_password1">
+    
+      <span class="helptext" id="id_new_password1_helptext"><ul><li>Your password can’t be too similar to your other personal information.</li><li>Your password must contain at least 8 characters.</li><li>Your password can’t be a commonly used password.</li><li>Your password can’t be entirely numeric.</li></ul></span>
+    
+    
+  </p>
+
+  
+  <p>
+    <label for="id_new_password2">New password confirmation:</label>
+    <input type="password" name="new_password2" autocomplete="new-password" required id="id_new_password2">
+    
+    
+      
+    
+  </p>
+
+    <button type="submit" class="form-button ">Submit</button>
+
+    <button type="reset" class="form-button btn ">Reset</button>
+    </fieldset>
+</form>

@@ -119,8 +119,8 @@ class SendInviteTask(Task):
         
         invite = self.invite
         email = invite.mail_address
-        home_link = f'http://192.168.230.155:2004'
-        link = f'http://192.168.230.155:2004/members/registration/?i={invite.code}'
+        home_link = f'http://127.0.0.1:8000'
+        link = f'{home_link}/members/registration/?i={invite.code}'
         contact = "codeconnectcuj@mail.edu"
 
         # send customized html email

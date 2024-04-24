@@ -16,3 +16,7 @@ django-widget-tweaks
 Stack overflow discussion - https://stackoverflow.com/questions/401025/define-css-class-in-django-forms
 
 Github - https://github.com/jazzband/django-widget-tweaks
+
+guess-indian-gender
+==============================
+https://pypi.org/project/guess-indian-gender/

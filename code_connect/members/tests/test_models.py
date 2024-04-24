@@ -69,6 +69,18 @@ class MemberModelTests(TestCase):
         m.save()
         self.assertIsInstance(m.user, CustomUser)
 
+    def test_user_exists(self):
+        """
+            - tests that if a CustomUser object with the same email already exists,
+            then we simply refer it, instead of creating a new CustomUser.
+        """
+        c = CustomUser(email="newuser@mail.edu")
+        c.save()
+        m = self.create_simple_member(email="newuser@mail.edu")
+        m.full_clean()
+        m.save()
+        self.assertEqual(m.user.pk, c.pk)
+
     def test_default_profile_pic(self):
         """
             - tests that if {profile_pic} is not provided, then a default one is used

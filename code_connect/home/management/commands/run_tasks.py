@@ -33,6 +33,10 @@ class Command(BaseCommand):
 
     def handle(self, *args, **options):
 
+        self.stderr.write(
+            self.style.SUCCESS('Started executing tasks.....')
+        )
+
         while True:
             try:
                 # fetch a queued task from db
